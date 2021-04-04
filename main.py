@@ -28,9 +28,10 @@ class Client(discord.Client):
             prediction = model.predict([extract_features(text, freqs)[0]])[0]
             if prediction == 1.:
                 self.counters[message.guild.id]['pos'] += 1
-                if self.counters[message.guild.id]['pos'] >= 10:
+                if self.counters[message.guild.id]['pos'] >= 5:
                     await message.channel.send('Yay')
                     self.counters[message.guild.id]['pos'] = 1
+                    self.counters[message.guild.id]['neg'] = 1
             else:
                 self.counters[message.guild.id]['neg'] += 1
                 if self.counters[message.guild.id]['neg'] >= 5:
